@@ -1,8 +1,16 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
+
 
 import Comments from './Comments';
 
 const MainContent = () => {
+  const dispatch = useDispatch();
+  const onPullData = () => {
+    dispatch({
+      type: 'COMMENTS_FETCH_REQUESTED'
+    });
+  }
   return (
     <div className="main-content">
       <div className="main-content--left">
@@ -20,7 +28,12 @@ const MainContent = () => {
           </div>
           <div className="action-button content-right__action-buttons">
             <div className="action-button__line action-button__pull-data">
-              <button className="btn">Pull Data</button>
+              <button
+                className="btn"
+                onClick={onPullData}
+              >
+                Pull Data
+              </button>
             </div>
             <div className="action-button__line action-button__remove">
               <input type="number" className="input input--remove-number" />
