@@ -5,16 +5,26 @@ import { useDispatch } from 'react-redux';
 import Comments from './Comments';
 
 const MainContent = () => {
+  const inputRef = React.createRef();
   const dispatch = useDispatch();
   const onPullData = () => {
     dispatch({
       type: 'COMMENTS_FETCH_REQUESTED'
     });
-  }
+  };
+
+  const onRemove = () => {
+    const index = inputRef.current.value;
+    // console.log('index: ', index);
+    dispatch({
+      type: 'COMMENTS_REMOVE_REQUESTED',
+      index,
+    });
+  };
+
   return (
     <div className="main-content">
       <div className="main-content--left">
-        Empty
       </div>
       <div className="main-content--right">
         <div className="content-right">
@@ -36,8 +46,13 @@ const MainContent = () => {
               </button>
             </div>
             <div className="action-button__line action-button__remove">
-              <input type="number" className="input input--remove-number" />
-              <button className="btn">Remove</button>
+              <input type="number" ref={inputRef} className="input input--remove-number" />
+              <button
+                className="btn"
+                onClick={onRemove}
+              >
+                Remove
+              </button>
             </div>
           </div>
         </div>

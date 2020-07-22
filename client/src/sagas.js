@@ -1,4 +1,4 @@
-import { call, put, takeLatest } from 'redux-saga/effects';
+import { all, call, put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 
 function* fetchComment(action) {
@@ -14,8 +14,16 @@ function* fetchComment(action) {
   }
 }
 
+function* removeComment(action) {
+  const { index } = action;
+  // TODO
+}
+
 function* rootSaga() {
-  yield takeLatest("COMMENTS_FETCH_REQUESTED", fetchComment);
+  yield all([
+    takeLatest("COMMENTS_FETCH_REQUESTED", fetchComment),
+    // takeLatest("COMMENTS_REMOVE_REQUESTED", removeComment)
+  ]);
 }
 
 export default rootSaga;

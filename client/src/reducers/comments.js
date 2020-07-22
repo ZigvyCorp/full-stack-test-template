@@ -1,3 +1,5 @@
+import { filter } from 'lodash';
+
 export const initialState = {
   data: [],
   isFetching: false,
@@ -23,6 +25,16 @@ const commentsReducer = (state = initialState, action) => {
         data: action.data,
         error: null,
         isFetching: false,
+      };
+
+    case 'COMMENTS_REMOVE_REQUESTED':
+      const { index } = action;
+      const { data } = state;
+      console.log('index: ', index);
+      const newData = filter(data, (n, i) => { return i !== parseInt(index, 10) });
+      return {
+        ...state,
+        data: newData
       };
 
     default:
