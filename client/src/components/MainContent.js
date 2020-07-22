@@ -1,10 +1,12 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { useDispatch } from 'react-redux';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 
 import Comments from './Comments';
 
-const MainContent = () => {
+const MainContent = ({ isFetching }) => {
   const inputRef = React.createRef();
   const dispatch = useDispatch();
   const onPullData = () => {
@@ -39,10 +41,14 @@ const MainContent = () => {
           <div className="action-button content-right__action-buttons">
             <div className="action-button__line action-button__pull-data">
               <button
-                className="btn"
+                className="btn btn--pull-data"
                 onClick={onPullData}
               >
-                Pull Data
+                {isFetching ?
+                  <FontAwesomeIcon icon={faSpinner} spin />
+                  : `Pull Data`
+                }
+
               </button>
             </div>
             <div className="action-button__line action-button__remove">
@@ -61,4 +67,8 @@ const MainContent = () => {
   )
 };
 
-export default MainContent;
+const mapStateToProps = (state, ownProps) => ({
+  isFetching: state.comments.isFetching,
+});
+
+export default connect(mapStateToProps)(MainContent);
