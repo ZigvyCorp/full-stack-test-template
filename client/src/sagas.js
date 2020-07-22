@@ -3,7 +3,7 @@ import axios from 'axios';
 
 function* fetchComment(action) {
   try {
-    const response = yield call(axios.get, 'https://jsonplaceholder.typicode.com/comments');
+    const response = yield call(axios.get, 'http://localhost:3001/api/comments');
     if (response !== null) {
       const { data } = response;
       yield put({type: "COMMENTS_FETCH_SUCCEEDED", data });
